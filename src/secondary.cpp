@@ -1180,7 +1180,7 @@ void selectNetwork(string network, string dataset, string security, NeuralNetCon
 			ReLUConfig* l30 = new ReLUConfig(1*1*512,MINI_BATCH_SIZE);
 
 			FCConfig* l31 = new FCConfig(1*1*512,MINI_BATCH_SIZE,256);
-			ReLUConfig* l32 = new ReLUConfig(512,MINI_BATCH_SIZE);
+			ReLUConfig* l32 = new ReLUConfig(256,MINI_BATCH_SIZE);
 			FCConfig* l33 = new FCConfig(256, MINI_BATCH_SIZE, 256);
 			ReLUConfig* l34 = new ReLUConfig(256, MINI_BATCH_SIZE);
 			FCConfig* l35 = new FCConfig(256, MINI_BATCH_SIZE, 10);
@@ -1266,7 +1266,7 @@ void selectNetwork(string network, string dataset, string security, NeuralNetCon
 			FCConfig* l31 = new FCConfig(2*2*512,MINI_BATCH_SIZE,512);
 			ReLUConfig* l32 = new ReLUConfig(512,MINI_BATCH_SIZE);
 			FCConfig* l33 = new FCConfig(512, MINI_BATCH_SIZE, 512);
-			ReLUConfig* l34 = new ReLUConfig(2048, MINI_BATCH_SIZE);
+			ReLUConfig* l34 = new ReLUConfig(512, MINI_BATCH_SIZE);
 			FCConfig* l35 = new FCConfig(512, MINI_BATCH_SIZE, 200);
 			ReLUConfig* l36 = new ReLUConfig(200, MINI_BATCH_SIZE);
 			config->addLayer(l0);
