@@ -13,10 +13,13 @@ extern void log_print(string str);
 //For time measurements
 clock_t tStart;
 struct timespec requestStart, requestEnd;
+struct timespec startTime, endTime;
 bool alreadyMeasuringTime = false;
 int roundComplexitySend = 0;
 int roundComplexityRecv = 0;
 bool alreadyMeasuringRounds = false;
+float totalTime = 0;
+bool recordStarts = false;
 
 //For faster modular operations
 extern smallType additionModPrime[PRIME_NUMBER][PRIME_NUMBER];
@@ -1361,6 +1364,7 @@ void end_m(string str)
 	pause_communication();
 	aggregateCommunication();
 	end_communication(str);
+	print_total_time();
 }
 
 void start_time()
@@ -1390,6 +1394,27 @@ void end_time(string str)
 	cout << "CPU time for " << str << ": " << (double)(clock() - tStart)/CLOCKS_PER_SEC << " sec\n";
 	cout << "----------------------------------------------" << endl;	
 	alreadyMeasuringTime = false;
+}
+
+void record_start()
+{
+	clock_gettime(CLOCK_REALTIME, &startTime);
+	recordStarts = true;
+}
+
+void record_end()
+{
+	if (!recordStarts) {
+		cout << "record_start() is not called" << endl;
+		exit(-1);
+	}
+	clock_gettime(CLOCK_REALTIME, &endTime);
+	totalTime += diff(startTime, endTime);
+	recordStarts = false;
+}
+
+void print_total_time() {
+	cout << "Total time for Pooling layers:" << totalTime << endl;
 }
 
 

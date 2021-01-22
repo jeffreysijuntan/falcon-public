@@ -29,4 +29,7 @@ void aggregateCommunication();
 void print_usage(const char * bin);
 double diff(timespec start, timespec end);
 void deleteObjects();
+void record_start();
+void record_end();
+void print_total_time();
 #endif

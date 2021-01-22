@@ -1,6 +1,7 @@
 #pragma once
 #include "MaxpoolLayer.h"
 #include "Functionalities.h"
+#include "secondary.h"
 using namespace std;
 
 
@@ -33,6 +34,7 @@ void MaxpoolLayer::printLayer()
 void MaxpoolLayer::forward(const RSSVectorMyType& inputActivation)
 {
 	log_print("Maxpool.forward");
+	record_start();
 
 	size_t B 	= conf.batchSize;
 	size_t iw 	= conf.imageWidth;
@@ -67,6 +69,8 @@ void MaxpoolLayer::forward(const RSSVectorMyType& inputActivation)
 		cout << "funcMaxpool: " << funcTime(funcMaxpool, temp1, activations, maxPrime, ow*oh*Din*B, f*f) << endl;
 	else
 		funcMaxpool(temp1, activations, maxPrime, ow*oh*Din*B, f*f);
+
+	record_end();
 	
 }
 
@@ -74,6 +78,7 @@ void MaxpoolLayer::forward(const RSSVectorMyType& inputActivation)
 void MaxpoolLayer::computeDelta(RSSVectorMyType& prevDelta)
 {
 	log_print("Maxpool.computeDelta");
+	record_start();
 
 	size_t B 	= conf.batchSize;
 	size_t iw 	= conf.imageWidth;
@@ -119,6 +124,8 @@ void MaxpoolLayer::computeDelta(RSSVectorMyType& prevDelta)
 		cout << "funcSelectShares: " << funcTime(funcSelectShares, temp2, temp1, prevDelta, iw*ih*Din*B) << endl;
 	else
 		funcSelectShares(temp2, temp1, prevDelta, iw*ih*Din*B);
+
+	record_end();
 }
 
 void MaxpoolLayer::updateEquations(const RSSVectorMyType& prevActivations)
