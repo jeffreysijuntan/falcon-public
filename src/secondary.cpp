@@ -1410,7 +1410,7 @@ void record_end()
 	}
 	clock_gettime(CLOCK_REALTIME, &endTime);
 	totalTime += diff(startTime, endTime);
-	cout << diff(startTimee, endTime) << endl;
+	cout << diff(startTime, endTime) << endl;
 	recordStarts = false;
 }
 
