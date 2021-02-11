@@ -220,7 +220,7 @@ void CNNLayer::computeDelta(RSSVectorMyType& prevDelta)
 void CNNLayer::updateEquations(const RSSVectorMyType& prevActivations)
 {
 	log_print("CNN.updateEquations");
-	record_start()
+	record_start();
 
 	size_t B 	= conf.batchSize;
 	size_t iw 	= conf.imageWidth;
