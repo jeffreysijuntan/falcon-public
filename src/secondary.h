@@ -30,6 +30,6 @@ void print_usage(const char * bin);
 double diff(timespec start, timespec end);
 void deleteObjects();
 void record_start();
-void record_end();
+void record_end(string type);
 void print_total_time();
 #endif
