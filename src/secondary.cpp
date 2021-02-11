@@ -1413,13 +1413,13 @@ void record_end(string layer)
 		exit(-1);
 	}
 	clock_gettime(CLOCK_REALTIME, &endTime);
-	if (layer == 'linear') {
+	if (layer == "linear") {
 		totalLinear += diff(startTime, endTime);
-	} else if (layer == 'relu') {
+	} else if (layer == "relu") {
 		totalReLU += diff(startTime, endTime);
-	} else if (layer == 'pool') {
+	} else if (layer == "pool") {
 		totalPool += diff(startTime, endTime);
-	} else if (layer == 'bn') {
+	} else if (layer == "bn") {
 		totalBN += diff(startTime, endTime);
 	}
 	//totalTime += diff(startTime, endTime);
