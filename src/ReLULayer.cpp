@@ -2,6 +2,7 @@
 #pragma once
 #include "ReLULayer.h"
 #include "Functionalities.h"
+#include "secondary.h"
 using namespace std;
 
 ReLULayer::ReLULayer(ReLUConfig* conf, int _layerNum)
@@ -23,6 +24,7 @@ void ReLULayer::printLayer()
 void ReLULayer::forward(const RSSVectorMyType &inputActivation)
 {
 	log_print("ReLU.forward");
+	record_start();
 
 	size_t rows = conf.batchSize;
 	size_t columns = conf.inputDim;
@@ -32,12 +34,15 @@ void ReLULayer::forward(const RSSVectorMyType &inputActivation)
 		cout << "funcRELU: " << funcTime(funcRELU, inputActivation, reluPrime, activations, size) << endl;
 	else
 		funcRELU(inputActivation, reluPrime, activations, size);
+
+	record_end("relu");
 }
 
 
 void ReLULayer::computeDelta(RSSVectorMyType& prevDelta)
 {
 	log_print("ReLU.computeDelta");
+	record_start();
 
 	//Back Propagate	
 	size_t rows = conf.batchSize;
@@ -48,6 +53,8 @@ void ReLULayer::computeDelta(RSSVectorMyType& prevDelta)
 		cout << "funcSelectShares: " << funcTime(funcSelectShares, deltas, reluPrime, prevDelta, size) << endl;
 	else
 		funcSelectShares(deltas, reluPrime, prevDelta, size);
+
+	record_end("relu");
 }
 
 

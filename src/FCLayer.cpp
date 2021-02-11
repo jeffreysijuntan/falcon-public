@@ -2,6 +2,7 @@
 #pragma once
 #include "FCLayer.h"
 #include "Functionalities.h"
+#include "secondary.h"
 using namespace std;
 
 FCLayer::FCLayer(FCConfig* conf, int _layerNum)
@@ -55,6 +56,7 @@ void FCLayer::printLayer()
 void FCLayer::forward(const RSSVectorMyType &inputActivation)
 {
 	log_print("FC.forward");
+	record_start();
 
 	size_t rows = conf.batchSize;
 	size_t columns = conf.outputDim;
@@ -69,12 +71,15 @@ void FCLayer::forward(const RSSVectorMyType &inputActivation)
 	for(size_t r = 0; r < rows; ++r)
 		for(size_t c = 0; c < columns; ++c)
 			activations[r*columns + c] = activations[r*columns + c] + biases[c];
+
+	record_end("linear");
 }
 
 
 void FCLayer::computeDelta(RSSVectorMyType& prevDelta)
 {
 	log_print("FC.computeDelta");
+	record_start();
 
 	//Back Propagate	
 	size_t rows = conf.batchSize;
@@ -85,12 +90,15 @@ void FCLayer::computeDelta(RSSVectorMyType& prevDelta)
 		cout << "funcMatMul: " << funcTime(funcMatMul, deltas, weights, prevDelta, rows, common_dim, columns, 0, 1, FLOAT_PRECISION) << endl;
 	else
 		funcMatMul(deltas, weights, prevDelta, rows, common_dim, columns, 0, 1, FLOAT_PRECISION);
+
+	record_end("linear");
 }
 
 
 void FCLayer::updateEquations(const RSSVectorMyType& prevActivations)
 {
 	log_print("FC.updateEquations");
+	record_start();
 
 	size_t rows = conf.batchSize;
 	size_t columns = conf.outputDim;
@@ -119,5 +127,6 @@ void FCLayer::updateEquations(const RSSVectorMyType& prevActivations)
 		funcMatMul(prevActivations, deltas, deltaWeight, rows, common_dim, columns, 1, 0, 
 					FLOAT_PRECISION + LOG_LEARNING_RATE + LOG_MINI_BATCH);
 	
-	subtractVectors<RSSMyType>(weights, deltaWeight, weights, size);		
+	subtractVectors<RSSMyType>(weights, deltaWeight, weights, size);
+	record_end("linear");		
 }

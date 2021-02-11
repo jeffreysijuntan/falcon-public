@@ -1,6 +1,7 @@
 #pragma once
 #include "CNNLayer.h"
 #include "Functionalities.h"
+#include "secondary.h"
 using namespace std;
 
 extern bool LARGE_NETWORK;
@@ -52,6 +53,7 @@ void CNNLayer::printLayer()
 void CNNLayer::forward(const RSSVectorMyType& inputActivation)
 {
 	log_print("CNN.forward");
+	record_start();
 
 	size_t B 	= conf.batchSize;
 	size_t iw 	= conf.imageWidth;
@@ -111,6 +113,8 @@ void CNNLayer::forward(const RSSVectorMyType& inputActivation)
 			for (size_t k = 0; k < tempSize; ++k)
 				activations[i*Dout*tempSize + j*tempSize + k] 
 					= temp3[j*B*tempSize + i*tempSize + k] + biases[j];
+
+	record_end("linear");
 }
 
 
@@ -118,6 +122,7 @@ void CNNLayer::forward(const RSSVectorMyType& inputActivation)
 void CNNLayer::computeDelta(RSSVectorMyType& prevDelta)
 {
 	log_print("CNN.computeDelta");
+	record_start();
 
 	size_t B 	= conf.batchSize;
 	size_t iw 	= conf.imageWidth;
@@ -208,11 +213,14 @@ void CNNLayer::computeDelta(RSSVectorMyType& prevDelta)
 						temp3[r*sizeDeltaR + b*sizeDeltaB + beta*sizeDeltaBeta + alpha];
 					}
 	}
+
+	record_end("linear");
 }
 
 void CNNLayer::updateEquations(const RSSVectorMyType& prevActivations)
 {
 	log_print("CNN.updateEquations");
+	record_start()
 
 	size_t B 	= conf.batchSize;
 	size_t iw 	= conf.imageWidth;
@@ -296,4 +304,6 @@ void CNNLayer::updateEquations(const RSSVectorMyType& prevActivations)
 					FLOAT_PRECISION + LOG_MINI_BATCH + LOG_LEARNING_RATE);
 	
 	subtractVectors<RSSMyType>(weights, temp4, weights, f*f*Din*Dout);
+
+	record_end("linear");
 }

@@ -70,7 +70,7 @@ void MaxpoolLayer::forward(const RSSVectorMyType& inputActivation)
 	else
 		funcMaxpool(temp1, activations, maxPrime, ow*oh*Din*B, f*f);
 
-	record_end();
+	record_end("pool");
 	
 }
 
@@ -125,7 +125,7 @@ void MaxpoolLayer::computeDelta(RSSVectorMyType& prevDelta)
 	else
 		funcSelectShares(temp2, temp1, prevDelta, iw*ih*Din*B);
 
-	record_end();
+	record_end("pool");
 }
 
 void MaxpoolLayer::updateEquations(const RSSVectorMyType& prevActivations)

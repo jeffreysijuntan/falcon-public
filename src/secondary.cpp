@@ -19,6 +19,10 @@ int roundComplexitySend = 0;
 int roundComplexityRecv = 0;
 bool alreadyMeasuringRounds = false;
 float totalTime = 0;
+float totalLinear = 0;
+float totalReLU = 0;
+float totalPool = 0;
+float totalBN = 0;
 bool recordStarts = false;
 
 //For faster modular operations
@@ -1402,20 +1406,32 @@ void record_start()
 	recordStarts = true;
 }
 
-void record_end()
+void record_end(string layer)
 {
 	if (!recordStarts) {
 		cout << "record_start() is not called" << endl;
 		exit(-1);
 	}
 	clock_gettime(CLOCK_REALTIME, &endTime);
-	totalTime += diff(startTime, endTime);
-	cout << diff(startTime, endTime) << endl;
+	if (layer == 'linear') {
+		totalLinear += diff(startTime, endTime);
+	} else if (layer == 'relu') {
+		totalReLU += diff(startTime, endTime);
+	} else if (layer == 'pool') {
+		totalPool += diff(startTime, endTime);
+	} else if (layer == 'bn') {
+		totalBN += diff(startTime, endTime);
+	}
+	//totalTime += diff(startTime, endTime);
+	//cout << diff(startTime, endTime) << endl;
 	recordStarts = false;
 }
 
 void print_total_time() {
-	cout << "Total time for Pooling layers:" << totalTime << endl;
+	cout << "Total time for Linear layers:" << totalLinear << endl;
+	cout << "Total time for ReLU layers:" << totalReLU << endl;
+	cout << "Total time for Pooling layers:" << totalPool << endl;
+	cout << "Total time for BN layers:" << totalBN << endl;
 }
 
 

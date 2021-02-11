@@ -1,6 +1,7 @@
 #pragma once
 #include "BNLayer.h"
 #include "Functionalities.h"
+#include "secondary.h"
 using namespace std;
 
 
@@ -29,6 +30,7 @@ void BNLayer::printLayer()
 void BNLayer::forward(const RSSVectorMyType& inputActivation)
 {
 	log_print("BN.forward");
+	record_start();
 
 	size_t B = conf.numBatches;
 	size_t m = conf.inputSize;
@@ -87,6 +89,8 @@ void BNLayer::forward(const RSSVectorMyType& inputActivation)
 	for (int i = 0; i < B; ++i)
 		for (int j = 0; j < m; ++j)
 			activations[i*m+j] = activations[i*m+j] + beta[i];
+
+	record_end("bn");
 }
 
 
@@ -94,6 +98,7 @@ void BNLayer::forward(const RSSVectorMyType& inputActivation)
 void BNLayer::computeDelta(RSSVectorMyType& prevDelta)
 {
 	log_print("BN.computeDelta");
+	record_start();
 
 	size_t B = conf.numBatches;
 	size_t m = conf.inputSize;
@@ -144,11 +149,14 @@ void BNLayer::computeDelta(RSSVectorMyType& prevDelta)
 		temp4[i] = ((myType)m) * sigma[i];
 
 	funcBatchNorm(temp1, temp4, prevDelta, m, B);
+	
+	record_end("bn");
 }
 
 void BNLayer::updateEquations(const RSSVectorMyType& prevActivations)
 {
 	log_print("BN.updateEquations");
+	record_start();
 
 	size_t B = conf.numBatches;
 	size_t m = conf.inputSize;
@@ -170,4 +178,5 @@ void BNLayer::updateEquations(const RSSVectorMyType& prevActivations)
 			temp3[i] = temp3[i] + temp2[i*m + j];
 
 	subtractVectors<RSSMyType>(gamma, temp3, gamma, B);
+	record_end("bn");
 }
