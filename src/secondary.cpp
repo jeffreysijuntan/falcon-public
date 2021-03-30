@@ -1029,7 +1029,6 @@ void selectNetwork(string network, string dataset, string security, NeuralNetCon
 		FCConfig* l6 = new FCConfig(4*4*50, MINI_BATCH_SIZE, 500);
 		ReLUConfig* l7 = new ReLUConfig(500, MINI_BATCH_SIZE);
 		FCConfig* l8 = new FCConfig(500, MINI_BATCH_SIZE, 10);
-		ReLUConfig* l9 = new ReLUConfig(10, MINI_BATCH_SIZE);
 		config->addLayer(l0);
 		config->addLayer(l1);
 		config->addLayer(l2);
@@ -1039,7 +1038,6 @@ void selectNetwork(string network, string dataset, string security, NeuralNetCon
 		config->addLayer(l6);
 		config->addLayer(l7);
 		config->addLayer(l8);
-		config->addLayer(l9);
 	}
 	else if (network.compare("AlexNet") == 0)
 	{
@@ -1047,18 +1045,18 @@ void selectNetwork(string network, string dataset, string security, NeuralNetCon
 			assert(false && "No AlexNet on MNIST");
 		else if (dataset.compare("CIFAR10") == 0)
 		{
-			NUM_LAYERS = 20;
-			// NUM_LAYERS = 18;		//Without BN
+			// NUM_LAYERS = 20;
+			NUM_LAYERS = 18;		//Without BN
 			WITH_NORMALIZATION = false;
 			CNNConfig* l0 = new CNNConfig(33,33,3,96,11,4,9,MINI_BATCH_SIZE);
 			MaxpoolConfig* l1 = new MaxpoolConfig(11,11,96,3,2,MINI_BATCH_SIZE);
 			ReLUConfig* l2 = new ReLUConfig(5*5*96,MINI_BATCH_SIZE);		
-			BNConfig * l3 = new BNConfig(5*5*96,MINI_BATCH_SIZE);
+			// BNConfig * l3 = new BNConfig(5*5*96,MINI_BATCH_SIZE);
 
 			CNNConfig* l4 = new CNNConfig(5,5,96,256,5,1,1,MINI_BATCH_SIZE);
 			MaxpoolConfig* l5 = new MaxpoolConfig(3,3,256,3,2,MINI_BATCH_SIZE);
 			ReLUConfig* l6 = new ReLUConfig(1*1*256,MINI_BATCH_SIZE);		
-			BNConfig * l7 = new BNConfig(1*1*256,MINI_BATCH_SIZE);
+			// BNConfig * l7 = new BNConfig(1*1*256,MINI_BATCH_SIZE);
 
 			CNNConfig* l8 = new CNNConfig(1,1,256,384,3,1,1,MINI_BATCH_SIZE);
 			ReLUConfig* l9 = new ReLUConfig(1*1*384,MINI_BATCH_SIZE);
@@ -1072,15 +1070,14 @@ void selectNetwork(string network, string dataset, string security, NeuralNetCon
 			FCConfig* l16 = new FCConfig(256,MINI_BATCH_SIZE,256);
 			ReLUConfig* l17 = new ReLUConfig(256,MINI_BATCH_SIZE);
 			FCConfig* l18 = new FCConfig(256,MINI_BATCH_SIZE,10);
-			ReLUConfig* l19 = new ReLUConfig(10,MINI_BATCH_SIZE);
 			config->addLayer(l0);
 			config->addLayer(l1);
 			config->addLayer(l2);
-			config->addLayer(l3);
+			//config->addLayer(l3);
 			config->addLayer(l4);
 			config->addLayer(l5);
 			config->addLayer(l6);
-			config->addLayer(l7);
+			//config->addLayer(l7);
 			config->addLayer(l8);
 			config->addLayer(l9);
 			config->addLayer(l10);
@@ -1092,7 +1089,6 @@ void selectNetwork(string network, string dataset, string security, NeuralNetCon
 			config->addLayer(l16);
 			config->addLayer(l17);
 			config->addLayer(l18);
-			config->addLayer(l19);
 		}
 		else if (dataset.compare("ImageNet") == 0)
 		{
@@ -1120,7 +1116,6 @@ void selectNetwork(string network, string dataset, string security, NeuralNetCon
 			FCConfig* l15 = new FCConfig(1024,MINI_BATCH_SIZE,1024);
 			ReLUConfig* l16 = new ReLUConfig(1024,MINI_BATCH_SIZE);
 			FCConfig* l17 = new FCConfig(1024,MINI_BATCH_SIZE,200);
-			ReLUConfig* l18 = new ReLUConfig(200,MINI_BATCH_SIZE);
 			config->addLayer(l0);
 			config->addLayer(l1);
 			config->addLayer(l2);
@@ -1139,7 +1134,6 @@ void selectNetwork(string network, string dataset, string security, NeuralNetCon
 			config->addLayer(l15);
 			config->addLayer(l16);
 			config->addLayer(l17);
-			config->addLayer(l18);
 		}
 	}
 	else if (network.compare("VGG16") == 0)
@@ -1191,7 +1185,6 @@ void selectNetwork(string network, string dataset, string security, NeuralNetCon
 			FCConfig* l33 = new FCConfig(256, MINI_BATCH_SIZE, 256);
 			ReLUConfig* l34 = new ReLUConfig(256, MINI_BATCH_SIZE);
 			FCConfig* l35 = new FCConfig(256, MINI_BATCH_SIZE, 10);
-			ReLUConfig* l36 = new ReLUConfig(10, MINI_BATCH_SIZE);
 			config->addLayer(l0);
 			config->addLayer(l1);
 			config->addLayer(l2);
@@ -1228,7 +1221,6 @@ void selectNetwork(string network, string dataset, string security, NeuralNetCon
 			config->addLayer(l33);
 			config->addLayer(l34);
 			config->addLayer(l35);
-			config->addLayer(l36);
 		}
 		else if (dataset.compare("ImageNet") == 0)
 		{
@@ -1268,14 +1260,13 @@ void selectNetwork(string network, string dataset, string security, NeuralNetCon
 			ReLUConfig* l27 = new ReLUConfig(4*4*512,MINI_BATCH_SIZE);
 			CNNConfig* l28 = new CNNConfig(4,4,512,512,3,1,1,MINI_BATCH_SIZE);
 			MaxpoolConfig* l29 = new MaxpoolConfig(4,4,512,2,2,MINI_BATCH_SIZE);
-			ReLUConfig* l30 = new ReLUConfig(2*2*512,MINI_BATCH_SIZE);
+			MaxpoolConfig* l30 = new MaxpoolConfig(2,2,512,1,1,MINI_BATCH_SIZE);
 
-			FCConfig* l31 = new FCConfig(2*2*512,MINI_BATCH_SIZE,512);
+			FCConfig* l31 = new FCConfig(512,MINI_BATCH_SIZE,512);
 			ReLUConfig* l32 = new ReLUConfig(512,MINI_BATCH_SIZE);
 			FCConfig* l33 = new FCConfig(512, MINI_BATCH_SIZE, 512);
 			ReLUConfig* l34 = new ReLUConfig(512, MINI_BATCH_SIZE);
 			FCConfig* l35 = new FCConfig(512, MINI_BATCH_SIZE, 200);
-			ReLUConfig* l36 = new ReLUConfig(200, MINI_BATCH_SIZE);
 			config->addLayer(l0);
 			config->addLayer(l1);
 			config->addLayer(l2);
@@ -1312,7 +1303,6 @@ void selectNetwork(string network, string dataset, string security, NeuralNetCon
 			config->addLayer(l33);
 			config->addLayer(l34);
 			config->addLayer(l35);
-			config->addLayer(l36);
 		}
 	}
 	else
