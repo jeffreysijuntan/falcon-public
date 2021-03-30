@@ -70,12 +70,12 @@ int main(int argc, char** argv)
 	// runOnly(net, l, what, network);
 
 	//Run training
-	// network += " train";
-	// train(net);
+	network += " train";
+	train(net);
 
 	//Run inference (possibly with preloading a network)
-	network += " test";
-	test(PRELOADING, network, net);
+	// network += " test";
+	// test(PRELOADING, network, net);
 
 	end_m(network);
 	cout << "----------------------------------------------" << endl;  	
