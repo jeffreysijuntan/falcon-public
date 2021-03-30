@@ -1018,7 +1018,7 @@ void selectNetwork(string network, string dataset, string security, NeuralNetCon
 	else if (network.compare("LeNet") == 0)
 	{
 		assert((dataset.compare("MNIST") == 0) && "LeNet only over MNIST");
-		NUM_LAYERS = 10;
+		NUM_LAYERS = 9;
 		WITH_NORMALIZATION = true;
 		CNNConfig* l0 = new CNNConfig(28,28,1,20,5,1,0,MINI_BATCH_SIZE);
 		MaxpoolConfig* l1 = new MaxpoolConfig(24,24,20,2,2,MINI_BATCH_SIZE);
@@ -1046,7 +1046,7 @@ void selectNetwork(string network, string dataset, string security, NeuralNetCon
 		else if (dataset.compare("CIFAR10") == 0)
 		{
 			// NUM_LAYERS = 20;
-			NUM_LAYERS = 18;		//Without BN
+			NUM_LAYERS = 17;		//Without BN
 			WITH_NORMALIZATION = false;
 			CNNConfig* l0 = new CNNConfig(33,33,3,96,11,4,9,MINI_BATCH_SIZE);
 			MaxpoolConfig* l1 = new MaxpoolConfig(11,11,96,3,2,MINI_BATCH_SIZE);
@@ -1092,7 +1092,7 @@ void selectNetwork(string network, string dataset, string security, NeuralNetCon
 		}
 		else if (dataset.compare("ImageNet") == 0)
 		{
-			NUM_LAYERS = 19;
+			NUM_LAYERS = 18;
 			// NUM_LAYERS = 17;		//Without BN
 			WITH_NORMALIZATION = false;
 			CNNConfig* l0 = new CNNConfig(56,56,3,64,7,1,3,MINI_BATCH_SIZE);
@@ -1142,7 +1142,7 @@ void selectNetwork(string network, string dataset, string security, NeuralNetCon
 			assert(false && "No VGG16 on MNIST");
 		else if (dataset.compare("CIFAR10") == 0)
 		{
-			NUM_LAYERS = 37;
+			NUM_LAYERS = 36;
 			WITH_NORMALIZATION = false;
 			CNNConfig* l0 = new CNNConfig(32,32,3,64,3,1,1,MINI_BATCH_SIZE);
 			ReLUConfig* l1 = new ReLUConfig(32*32*64,MINI_BATCH_SIZE);		
@@ -1224,7 +1224,7 @@ void selectNetwork(string network, string dataset, string security, NeuralNetCon
 		}
 		else if (dataset.compare("ImageNet") == 0)
 		{
-			NUM_LAYERS = 37;
+			NUM_LAYERS = 36;
 			WITH_NORMALIZATION = false;
 			CNNConfig* l0 = new CNNConfig(64,64,3,64,3,1,1,MINI_BATCH_SIZE);
 			ReLUConfig* l1 = new ReLUConfig(64*64*64,MINI_BATCH_SIZE);		
