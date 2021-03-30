@@ -812,7 +812,7 @@ void loadData(string net, string dataset)
 		//http://cs231n.stanford.edu/reports/2017/pdfs/931.pdf
 		if (net.compare("AlexNet") == 0)
 		{
-			INPUT_SIZE = 56*56*3;
+			INPUT_SIZE = 64*64*3;
 			LAST_LAYER_SIZE = 200;
 			TRAINING_DATA_SIZE = 8;
 			TEST_DATA_SIZE = 8;			
