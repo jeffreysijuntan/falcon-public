@@ -1148,7 +1148,7 @@ void selectNetwork(string network, string dataset, string security, NeuralNetCon
 			CNNConfig* l8 = new CNNConfig(5,5,384,384,3,1,1,MINI_BATCH_SIZE);
 			ReLUConfig* l9 = new ReLUConfig(5*5*384,MINI_BATCH_SIZE);
 			CNNConfig* l10 = new CNNConfig(5,5,384,256,3,1,1,MINI_BATCH_SIZE);
-			MaxpoolConfig* l11 = new MaxpoolConfig(5,5,256,2,1);
+			MaxpoolConfig* l11 = new MaxpoolConfig(5,5,256,2,1,MINI_BATCH_SIZE);
 			ReLUConfig* l12 = new ReLUConfig(2*2*256,MINI_BATCH_SIZE);	
 
 			FCConfig* l13 = new FCConfig(2*2*256,MINI_BATCH_SIZE,1024);
