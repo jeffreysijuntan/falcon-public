@@ -812,7 +812,7 @@ void loadData(string net, string dataset)
 		//http://cs231n.stanford.edu/reports/2017/pdfs/931.pdf
 		if (net.compare("AlexNet") == 0)
 		{
-			INPUT_SIZE = 64*64*3;
+			INPUT_SIZE = 65*65*3;
 			LAST_LAYER_SIZE = 200;
 			TRAINING_DATA_SIZE = 8;
 			TEST_DATA_SIZE = 8;			
@@ -1135,7 +1135,7 @@ void selectNetwork(string network, string dataset, string security, NeuralNetCon
 			// config->addLayer(l15);
 			// config->addLayer(l16);
 			// config->addLayer(l17);
-			CNNConfig* l0 = new CNNConfig(64,64,3,96,11,4,9, MINI_BATCH_SIZE);
+			CNNConfig* l0 = new CNNConfig(65,65,3,96,11,4,9, MINI_BATCH_SIZE);
 			MaxpoolConfig* l1 = new MaxpoolConfig(18,18,96,3,2,MINI_BATCH_SIZE);
 			ReLUConfig* l2 = new ReLUConfig(8*8*96,MINI_BATCH_SIZE);	
 
