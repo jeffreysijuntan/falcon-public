@@ -71,11 +71,11 @@ int main(int argc, char** argv)
 
 	//Run training
 	// network += " train";
-	train(net);
+	// train(net);
 
 	//Run inference (possibly with preloading a network)
-	// network += " test";
-	// test(PRELOADING, network, net);
+	network += " test";
+	test(PRELOADING, network, net);
 
 	end_m(network);
 	cout << "----------------------------------------------" << endl;  	
