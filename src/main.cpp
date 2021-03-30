@@ -70,7 +70,7 @@ int main(int argc, char** argv)
 	// runOnly(net, l, what, network);
 
 	//Run training
-	network += " train";
+	// network += " train";
 	train(net);
 
 	//Run inference (possibly with preloading a network)
